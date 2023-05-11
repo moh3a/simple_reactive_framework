@@ -1,9 +1,21 @@
-use leptos_reactive;
-use wasm_bindgen;
-use web_sys::{self, Element};
+use std::ops::Deref;
+
+use leptos_reactive::{
+    self, create_effect, create_runtime, create_scope, create_signal, Scope, SignalGet,
+    SignalUpdate,
+};
+use wasm_bindgen::{self, JsCast, JsValue};
+use web_sys::{self, console, window, Element, Event, Window};
 
 fn main() {
-    mount(El::new("button"))
+    mount(El::new("button"));
+}
+
+fn mount(root: El) {
+    let window = window().unwrap();
+    let document = window.document().unwrap();
+    let body = document.body().unwrap();
+    body.append_child(&root).unwrap();
 }
 
 #[derive(Debug, Clone)]
@@ -22,7 +34,10 @@ impl Deref for El {
 }
 
 impl El {
-    pub fn new(tag_name: &str) {
-        todo!("El: implement the new method")
+    pub fn new(tag_name: &str) -> Self {
+        let window = window().unwrap();
+        let document = window.document().unwrap();
+        let el = document.create_element(tag_name).unwrap();
+        Self(el)
     }
 }

@@ -304,6 +304,7 @@ dependencies = [
  "js-sys",
  "leptos_reactive",
  "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
